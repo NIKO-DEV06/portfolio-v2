@@ -1,22 +1,21 @@
-import { WorkList } from "@/components/sections/work-list";
+import { RevealText } from "@/components/motion/reveal-text";
+import { WorkGrid } from "@/components/sections/work-grid";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { projects } from "@/content/projects";
 
 export function Work() {
   return (
-    <section id="work" className="gutter pb-[clamp(4rem,8vw,7rem)]">
-      <div className="grid grid-cols-12 items-end gap-6 border-b border-line pb-6">
-        <Eyebrow index="02" className="col-span-12 lg:col-span-7">
+    <section id="work" className="gutter pb-[clamp(5rem,10vw,9rem)]">
+      <div className="grid gap-y-8 border-t border-line pb-[clamp(3.5rem,7vw,6rem)] pt-6 md:grid-cols-12 md:gap-x-6">
+        <Eyebrow index="02" className="md:col-span-4">
           Selected work
         </Eyebrow>
-        <p className="eyebrow col-span-3 hidden text-muted lg:block">
-          Category
-        </p>
-        <p className="eyebrow col-span-2 hidden text-right text-muted lg:block">
-          Role
-        </p>
+        <RevealText
+          text="Products I've *built,* led and shipped."
+          className="text-heading md:col-span-8"
+        />
       </div>
-      <WorkList projects={projects} />
+      <WorkGrid projects={projects} />
     </section>
   );
 }

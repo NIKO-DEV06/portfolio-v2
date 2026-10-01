@@ -1,10 +1,9 @@
 import { Capabilities } from "@/components/sections/capabilities";
 import { Experience } from "@/components/sections/experience";
-import { Gallery } from "@/components/sections/gallery";
 import { Hero } from "@/components/sections/hero";
 import { Intro } from "@/components/sections/intro";
+import { RadialMarquee } from "@/components/sections/radial-marquee";
 import { Work } from "@/components/sections/work";
-import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 
 const personJsonLd = {
@@ -37,8 +36,8 @@ export default function Home() {
       <Hero />
       <Intro />
       <Work />
-      <Gallery projects={projects} />
       <Capabilities />
+      <RadialMarquee />
       <Experience />
     </main>
   );

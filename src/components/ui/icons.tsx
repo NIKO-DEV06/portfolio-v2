@@ -37,23 +37,6 @@ export function Plus(props: IconProps) {
   );
 }
 
-export function CopyIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...base} {...props}>
-      <rect x="9" y="9" width="11" height="11" rx="2" />
-      <path d="M5 15V6a2 2 0 0 1 2-2h8" />
-    </svg>
-  );
-}
-
-export function CheckIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...base} {...props}>
-      <path d="m5 12.5 4.5 4.5L19 7.5" />
-    </svg>
-  );
-}
-
 /** Wireframe globe whose meridians sweep to suggest rotation. */
 export function Globe({ className, ...props }: IconProps) {
   const meridian =
@@ -68,16 +51,16 @@ export function Globe({ className, ...props }: IconProps) {
     >
       <circle cx="16" cy="16" r="13" />
       <path d="M3 16h26M5.2 9h21.6M5.2 23h21.6" />
-      <ellipse className={meridian} cx="16" cy="16" rx="13" ry="13" />
+      <ellipse className={cn(meridian, "[--delay:0s]")} cx="16" cy="16" rx="13" ry="13" />
       <ellipse
-        className={cn(meridian, "[animation-delay:-1.33s]")}
+        className={cn(meridian, "[--delay:-1.33s]")}
         cx="16"
         cy="16"
         rx="13"
         ry="13"
       />
       <ellipse
-        className={cn(meridian, "[animation-delay:-2.66s]")}
+        className={cn(meridian, "[--delay:-2.66s]")}
         cx="16"
         cy="16"
         rx="13"

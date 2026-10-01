@@ -7,7 +7,8 @@ export const ease = {
 
 /**
  * Seconds before the hero intro starts (exposed to CSS as --intro-delay).
- * When the preloader lands, set this to its exit time so the hero
- * animates in right after it.
+ * Matches the page loader: its pixel wave starts uncovering the left of the
+ * screen at ~0.3s and clears the right by ~1.05s, so the hero animates in
+ * as it's revealed (see page-loader.tsx).
  */
-export const INTRO_DELAY = 0.15;
+export const INTRO_DELAY = 0.35;

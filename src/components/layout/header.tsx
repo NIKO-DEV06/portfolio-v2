@@ -1,3 +1,4 @@
+import { CommandTrigger } from "@/components/layout/command-trigger";
 import { RollText } from "@/components/ui/roll-text";
 import { nav, site } from "@/content/site";
 
@@ -5,7 +6,7 @@ import { nav, site } from "@/content/site";
 export function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-40">
-      <div className="gutter flex items-center justify-between pt-7 motion-safe:animate-fade-down md:pt-9 [animation-delay:0.6s]">
+      <div className="gutter flex items-center justify-between pt-7 motion-safe:animate-fade-down md:pt-9 [--delay:0.5s]">
         <a
           href="#home"
           className="group flex items-center gap-1.5 text-[0.95rem] font-medium"
@@ -35,6 +36,9 @@ export function Header() {
                 </a>
               </li>
             ))}
+            <li>
+              <CommandTrigger />
+            </li>
           </ul>
         </nav>
       </div>

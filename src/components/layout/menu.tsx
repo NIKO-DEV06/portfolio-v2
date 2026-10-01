@@ -62,7 +62,9 @@ export function Menu() {
   useMotionValueEvent(scrollY, "change", (y) => {
     setPastHero(y > window.innerHeight * 0.6);
     // Flip the button to light once the dark footer sits underneath it.
-    const footerTop = document.getElementById("contact")?.getBoundingClientRect().top;
+    const footerTop = document
+      .getElementById("contact")
+      ?.getBoundingClientRect().top;
     setOverFooter(footerTop !== undefined && footerTop < 80);
   });
 
@@ -132,12 +134,13 @@ export function Menu() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls={panelId}
+          strength={0.3}
           className={cn(
             "size-14 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-colors duration-500 md:size-[4.75rem]",
             lightToggle ? "bg-paper text-ink" : "bg-ink text-paper",
           )}
           fillClassName="bg-accent"
-          labelClassName="group-data-filled:text-white"
+          labelClassName="group-hover:text-ink group-focus-visible:text-ink"
         >
           <span aria-hidden className="relative block h-3 w-6">
             <span
@@ -220,7 +223,7 @@ export function Menu() {
                       >
                         <span
                           aria-hidden
-                          className="absolute -left-6 top-1/2 size-2.5 -translate-y-1/2 scale-0 rounded-full bg-paper transition-transform duration-500 ease-out-expo group-hover:scale-100 group-focus-visible:scale-100"
+                          className="absolute -left-6 top-1/2 size-2.5 -translate-y-1/2 scale-0 rounded-full bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-100 group-focus-visible:scale-100"
                         />
                         <span className="inline-block transition-transform duration-500 ease-out-expo group-hover:translate-x-2">
                           {link.label}
@@ -247,7 +250,9 @@ export function Menu() {
                     </UnderlineLink>
                   </li>
                   <li>
-                    <UnderlineLink href={`mailto:${site.email}`}>Email</UnderlineLink>
+                    <UnderlineLink href={`mailto:${site.email}`}>
+                      Email
+                    </UnderlineLink>
                   </li>
                 </ul>
               </div>

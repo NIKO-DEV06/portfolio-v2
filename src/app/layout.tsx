@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Host_Grotesk, Instrument_Serif } from "next/font/google";
 
+import { CommandMenu } from "@/components/layout/command-menu";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Menu } from "@/components/layout/menu";
+import { PageLoader } from "@/components/layout/page-loader";
 import { SkipLink } from "@/components/layout/skip-link";
 import { Providers } from "@/components/providers";
 import { site } from "@/content/site";
@@ -65,10 +67,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn(sans.variable, serif.variable, mono.variable)}
     >
       <body className="bg-paper text-ink">
+        <PageLoader />
         <SkipLink />
         <Providers>
           <Header />
           <Menu />
+          <CommandMenu />
           {children}
           <Footer />
         </Providers>

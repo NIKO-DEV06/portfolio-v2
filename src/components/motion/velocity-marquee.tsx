@@ -61,7 +61,11 @@ export function VelocityMarquee({
   return (
     <div className={cn("flex overflow-hidden whitespace-nowrap", className)}>
       <span className="sr-only">{text}</span>
-      <motion.div aria-hidden style={{ x }} className="flex whitespace-nowrap will-change-transform">
+      <motion.div
+        aria-hidden
+        style={{ x }}
+        className="flex whitespace-nowrap will-change-transform"
+      >
         {Array.from({ length: COPIES }, (_, i) => (
           <span key={i} className="block pr-[0.3em]">
             {text}

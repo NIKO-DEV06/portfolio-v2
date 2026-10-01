@@ -1,119 +1,107 @@
-import Image from "next/image";
+import type { ReactNode } from 'react';
 
-import { CurveDivider } from "@/components/layout/curve-divider";
-import { MagneticLink } from "@/components/motion/magnetic-button";
-import { RevealLines } from "@/components/motion/reveal-lines";
-import { CopyEmail } from "@/components/ui/copy-email";
-import { ArrowDownRight, ArrowUpRight } from "@/components/ui/icons";
-import { LocalTime } from "@/components/ui/local-time";
-import { UnderlineLink } from "@/components/ui/underline-link";
-import { site } from "@/content/site";
+import { FooterReveal } from '@/components/layout/footer-reveal';
+import { ProximityText } from '@/components/motion/proximity-text';
+import { RollText } from '@/components/ui/roll-text';
+import { site } from '@/content/site';
+
+const pages = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Experience', href: '#experience' },
+];
+
+const [emailUser, emailDomain] = site.email.split('@');
+
+// Link size tracks the footer's width (cqw) once the three columns appear.
+const linkClass =
+  'group inline-flex text-[1.9rem] font-semibold leading-[1.17] tracking-[-0.03em] xl:text-[2.9cqw]';
+
+function Column({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div>
+      <p className="text-[clamp(0.95rem,1.1cqw,1.2rem)] text-night-muted">
+        ( {label} )
+      </p>
+      <div className="mt-[clamp(1.25rem,3cqw,3rem)]">{children}</div>
+    </div>
+  );
+}
 
 export function Footer() {
-  const linkedIn = site.socials.find((s) => s.label === "LinkedIn");
-
   return (
-    <>
-      <CurveDivider />
-      <footer
-        id="contact"
-        className="relative z-0 overflow-hidden bg-night text-paper"
-      >
-        <div className="gutter pt-[clamp(10rem,18vw,16rem)]">
-          <div className="relative">
-            <RevealLines
-              as="h2"
-              className="text-mega font-normal"
-              lines={[
-                <span key="a" className="flex items-center gap-[0.22em]">
-                  <span className="relative inline-block size-[0.82em] shrink-0 overflow-hidden rounded-full">
-                    <Image
-                      src={site.avatar}
-                      alt=""
-                      fill
-                      sizes="9rem"
-                      className="object-cover"
-                    />
-                  </span>
-                  Let&apos;s build
-                </span>,
-                <span key="b">
-                  something{" "}
-                  <span className="font-serif italic tracking-normal">
-                    great.
-                  </span>
-                </span>,
-              ]}
-            />
-            <ArrowDownRight className="absolute right-0 top-2 hidden size-[clamp(1.5rem,2.4vw,2.5rem)] text-night-muted md:block" />
-          </div>
+    <footer id="contact" className="relative bg-night text-paper">
+      <FooterReveal>
+        <div className="gutter @container flex min-h-svh flex-col justify-between gap-[clamp(5rem,12vw,6rem)] pb-[clamp(0.75rem,2vw,1.75rem)] pt-[clamp(2.5rem,4vw,3.75rem)]">
+          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+            <Column label="Pages">
+              <nav aria-label="Footer">
+                <ul>
+                  {pages.map((page) => (
+                    <li key={page.href}>
+                      <a href={page.href} className={linkClass}>
+                        <RollText text={page.label} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </Column>
 
-          {/* Divider with the call to action sitting on it */}
-          <div className="relative mt-[clamp(4rem,8vw,7rem)]">
-            <div className="h-px w-full bg-night-line" />
-            <div className="absolute right-[6%] top-0 -translate-y-1/2">
-              <MagneticLink
-                href={`mailto:${site.email}`}
-                className="size-[clamp(9rem,12.5vw,12.5rem)] rounded-full bg-accent text-[1.05rem] text-white"
-                fillClassName="bg-paper"
-                labelClassName="group-data-filled:text-ink"
-                strength={0.35}
-              >
-                Get in touch
-              </MagneticLink>
-            </div>
-          </div>
-
-          <div className="mt-[clamp(6rem,9vw,7rem)] flex flex-wrap gap-4">
-            <CopyEmail email={site.email} />
-            {linkedIn && (
-              <MagneticLink
-                href={linkedIn.href}
-                external
-                strength={0.2}
-                className="h-16 rounded-full border border-night-line px-8 text-[1.05rem]"
-                fillClassName="bg-paper"
-                labelClassName="group-data-filled:text-ink"
-              >
-                LinkedIn
-                <ArrowUpRight className="size-4" />
-              </MagneticLink>
-            )}
-          </div>
-
-          <div className="mt-[clamp(5rem,10vw,8rem)] flex flex-col gap-10 border-t border-night-line py-8 text-[0.95rem] md:flex-row md:items-end md:justify-between">
-            <div className="flex gap-14">
-              <dl>
-                <dt className="eyebrow text-night-muted">Edition</dt>
-                <dd className="mt-3">2026 — v2.0</dd>
-              </dl>
-              <dl>
-                <dt className="eyebrow text-night-muted">Local time</dt>
-                <dd className="mt-3">
-                  <LocalTime timeZone={site.timeZone} />
-                </dd>
-              </dl>
-            </div>
-            <div>
-              <p className="eyebrow text-night-muted">Socials</p>
-              <ul className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
+            <Column label="Socials">
+              <ul>
                 {site.socials.map((social) => (
                   <li key={social.href}>
-                    <UnderlineLink href={social.href} external>
-                      {social.label}
-                    </UnderlineLink>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={linkClass}
+                    >
+                      <RollText text={social.label} />
+                    </a>
                   </li>
                 ))}
-                <li>
-                  <UnderlineLink href={site.resumeUrl} external>
-                    Résumé
-                  </UnderlineLink>
-                </li>
               </ul>
+            </Column>
+
+            <div className="sm:col-span-2 xl:col-span-1">
+              <Column label="Contact">
+                {/* Breaks at the @ so the long address sits like a two-line block. */}
+                <a
+                  href={`mailto:${site.email}`}
+                  className={`${linkClass} flex-col`}
+                >
+                  <RollText text={emailUser} />
+                  <RollText text={`@${emailDomain}`} />
+                </a>
+              </Column>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-[clamp(0.75rem,1.4cqw,1.5rem)] text-[clamp(0.95rem,1.1cqw,1.2rem)] text-night-muted">
+              Full-Stack & AI Product Engineer, based in the UK
+            </p>
+            <p className="sr-only">© 2026 {site.name}</p>
+            <div aria-hidden className="flex select-none items-start uppercase">
+              <ProximityText
+                lines={[site.firstName]}
+                rest={800}
+                peak={520}
+                reach={0.25}
+                // Sized in container units so the name always spans edge to edge.
+                className="text-[19.5cqw] leading-[0.8] tracking-[-0.055em] text-night-muted"
+              />
+              <span className="ml-[0.6cqw] mt-[0.4cqw] text-[5.7cqw] font-bold leading-none transition-transform duration-1000 ease-out-expo hover:rotate-[360deg] text-night-muted">
+                ©
+              </span>
             </div>
           </div>
         </div>
-      </footer>
-    </>
+      </FooterReveal>
+    </footer>
   );
 }

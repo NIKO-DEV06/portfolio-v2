@@ -47,9 +47,14 @@ export function ExperienceList({ items }: { items: Role[] }) {
                     )}
                   />
                 </span>
+                {/* Hover underline sits on the row's border, so only draw it
+                    while closed — open, it would split the row from its details. */}
                 <span
                   aria-hidden
-                  className="absolute bottom-[-1px] left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-700 ease-out-expo group-hover:scale-x-100"
+                  className={cn(
+                    "absolute bottom-[-1px] left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-700 ease-out-expo",
+                    !isOpen && "group-hover:scale-x-100",
+                  )}
                 />
               </button>
             </h3>

@@ -1,13 +1,10 @@
-import { RevealText } from "@/components/motion/reveal-text";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { capabilities } from "@/content/capabilities";
+import { RevealText } from '@/components/motion/reveal-text';
+import { Eyebrow } from '@/components/ui/eyebrow';
+import { capabilities } from '@/content/capabilities';
 
 export function Capabilities() {
   return (
-    <section
-      id="capabilities"
-      className="gutter py-[clamp(6rem,11vw,10rem)]"
-    >
+    <section id="capabilities" className="gutter py[clamp(6rem,11vw,10rem)]">
       <div className="grid gap-y-8 border-b border-line pb-[clamp(3rem,5vw,4.5rem)] md:grid-cols-12 md:gap-x-8">
         <Eyebrow index="03" className="md:col-span-4">
           Capabilities
@@ -29,7 +26,7 @@ export function Capabilities() {
               className="absolute left-0 top-[-1px] h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-700 ease-out-expo group-hover:scale-x-100"
             />
             <span className="eyebrow text-muted transition-colors duration-500 group-hover:text-accent">
-              {String(i + 1).padStart(2, "0")}.
+              {String(i + 1).padStart(2, '0')}.
             </span>
             <h3 className="mt-10 text-[1.6rem] leading-tight tracking-[-0.02em] transition-transform duration-700 ease-out-expo group-hover:translate-x-1.5">
               {item.title}

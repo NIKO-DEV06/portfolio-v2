@@ -25,6 +25,10 @@ export const site = {
     { label: "GitHub", href: "https://github.com/NIKO-DEV06" },
   ],
   founderOf: { name: "Tallyn", href: "https://www.tallyn.app" },
+  currently: [
+    { role: "Founder", org: "Tallyn", href: "https://www.tallyn.app" },
+    { role: "Software Engineer", org: "Bloco" },
+  ],
 } as const;
 
 export const nav = [
