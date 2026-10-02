@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useLenis } from "lenis/react";
+import { useLenis } from 'lenis/react';
 import {
   AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
-} from "motion/react";
+} from 'motion/react';
 import {
   useEffect,
   useId,
@@ -14,22 +14,22 @@ import {
   useState,
   useSyncExternalStore,
   type MouseEvent,
-} from "react";
+} from 'react';
 
-import { MagneticButton } from "@/components/motion/magnetic-button";
-import { UnderlineLink } from "@/components/ui/underline-link";
-import { nav, site } from "@/content/site";
-import { cn } from "@/lib/cn";
-import { ease } from "@/lib/motion";
+import { MagneticButton } from '@/components/motion/magnetic-button';
+import { UnderlineLink } from '@/components/ui/underline-link';
+import { nav, site } from '@/content/site';
+import { cn } from '@/lib/cn';
+import { ease } from '@/lib/motion';
 
-const links = [{ label: "Home", href: "#home" }, ...nav];
+const links = [{ label: 'Home', href: '#home' }, ...nav];
 
-const DESKTOP = "(min-width: 768px)";
+const DESKTOP = '(min-width: 768px)';
 
 function subscribeToDesktop(onChange: () => void) {
   const query = window.matchMedia(DESKTOP);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
+  query.addEventListener('change', onChange);
+  return () => query.removeEventListener('change', onChange);
 }
 
 function useIsDesktop() {
@@ -41,8 +41,8 @@ function useIsDesktop() {
 }
 
 // The panel's left edge bulges out as it slides in, then settles flat.
-const curved = "M100 0 L100 1000 Q-100 500 100 0";
-const straight = "M100 0 L100 1000 Q100 500 100 0";
+const curved = 'M100 0 L100 1000 Q-100 500 100 0';
+const straight = 'M100 0 L100 1000 Q100 500 100 0';
 
 /**
  * Floating round menu button (appears once the header has scrolled away,
@@ -59,11 +59,11 @@ export function Menu() {
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
-  useMotionValueEvent(scrollY, "change", (y) => {
+  useMotionValueEvent(scrollY, 'change', (y) => {
     setPastHero(y > window.innerHeight * 0.6);
     // Flip the button to light once the dark footer sits underneath it.
     const footerTop = document
-      .getElementById("contact")
+      .getElementById('contact')
       ?.getBoundingClientRect().top;
     setOverFooter(footerTop !== undefined && footerTop < 80);
   });
@@ -79,17 +79,17 @@ export function Menu() {
   useEffect(() => {
     if (!open) return;
     const panel = panelRef.current;
-    const toggle = toggleRef.current?.querySelector("button");
-    panel?.querySelector("a")?.focus({ preventScroll: true });
+    const toggle = toggleRef.current?.querySelector('button');
+    panel?.querySelector('a')?.focus({ preventScroll: true });
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         setOpen(false);
         toggle?.focus();
         return;
       }
-      if (event.key !== "Tab" || !panel || !toggle) return;
-      const focusable = [toggle, ...panel.querySelectorAll<HTMLElement>("a")];
+      if (event.key !== 'Tab' || !panel || !toggle) return;
+      const focusable = [toggle, ...panel.querySelectorAll<HTMLElement>('a')];
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (event.shiftKey && document.activeElement === first) {
@@ -101,8 +101,8 @@ export function Menu() {
       }
     }
 
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, href: string) {
@@ -112,7 +112,7 @@ export function Menu() {
       lenis.start();
       lenis.scrollTo(href, { duration: 1.4, force: true });
     } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -131,13 +131,13 @@ export function Menu() {
       >
         <MagneticButton
           onClick={() => setOpen((value) => !value)}
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls={panelId}
           strength={0.3}
           className={cn(
-            "size-14 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-colors duration-500 md:size-[4.75rem]",
-            lightToggle ? "bg-paper text-ink" : "bg-ink text-paper",
+            'size-14 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-colors duration-500 md:size-[4.75rem]',
+            lightToggle ? 'bg-paper text-ink' : 'bg-ink text-paper',
           )}
           fillClassName="bg-accent"
           labelClassName="group-hover:text-ink group-focus-visible:text-ink"
@@ -145,14 +145,14 @@ export function Menu() {
           <span aria-hidden className="relative block h-3 w-6">
             <span
               className={cn(
-                "absolute inset-x-0 top-0 h-[1.5px] bg-current transition-transform duration-500 ease-out-expo",
-                open && "translate-y-[5.25px] rotate-45",
+                'absolute inset-x-0 top-0 h-[1.5px] bg-current transition-transform duration-500 ease-out-expo',
+                open && 'translate-y-[5.25px] rotate-45',
               )}
             />
             <span
               className={cn(
-                "absolute inset-x-0 bottom-0 h-[1.5px] bg-current transition-transform duration-500 ease-out-expo",
-                open && "-translate-y-[5.25px] -rotate-45",
+                'absolute inset-x-0 bottom-0 h-[1.5px] bg-current transition-transform duration-500 ease-out-expo',
+                open && '-translate-y-[5.25px] -rotate-45',
               )}
             />
           </span>
@@ -179,9 +179,9 @@ export function Menu() {
               role="dialog"
               aria-modal="true"
               aria-label="Site menu"
-              initial={{ x: "calc(100% + 6.5rem)" }}
-              animate={{ x: "0%" }}
-              exit={{ x: "calc(100% + 6.5rem)" }}
+              initial={{ x: 'calc(100% + 6.5rem)' }}
+              animate={{ x: '0%' }}
+              exit={{ x: 'calc(100% + 6.5rem)' }}
               transition={{ duration: 0.9, ease: ease.inOutQuart }}
               className="fixed inset-y-0 right-0 z-50 flex w-full max-w-[34rem] flex-col justify-between bg-night px-10 pb-10 pt-28 text-paper md:px-20 md:pt-36"
             >

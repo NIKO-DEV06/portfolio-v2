@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 import {
   motion,
   useMotionValue,
@@ -8,15 +8,15 @@ import {
   useScroll,
   useSpring,
   useTransform,
-} from "motion/react";
-import { useRef, type CSSProperties, type PointerEvent } from "react";
+} from 'motion/react';
+import { useRef, type CSSProperties, type PointerEvent } from 'react';
 
-import { MagneticLink } from "@/components/motion/magnetic-button";
-import { VelocityMarquee } from "@/components/motion/velocity-marquee";
-import { ArrowDownRight, ArrowUpRight, Globe } from "@/components/ui/icons";
-import { LocalTime } from "@/components/ui/local-time";
-import { site } from "@/content/site";
-import { INTRO_DELAY } from "@/lib/motion";
+import { MagneticLink } from '@/components/motion/magnetic-button';
+import { VelocityMarquee } from '@/components/motion/velocity-marquee';
+import { ArrowDownRight, ArrowUpRight, Globe } from '@/components/ui/icons';
+import { LocalTime } from '@/components/ui/local-time';
+import { site } from '@/content/site';
+import { INTRO_DELAY } from '@/lib/motion';
 
 const drift = { stiffness: 50, damping: 20, mass: 0.8 };
 
@@ -27,9 +27,9 @@ export function Hero() {
   // Portrait sinks slightly slower than the page as you scroll away.
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: ['start start', 'end start'],
   });
-  const portraitScroll = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
+  const portraitScroll = useTransform(scrollYProgress, [0, 1], ['0%', '16%']);
 
   // ...and leans gently towards the cursor.
   const pointerX = useMotionValue(0);
@@ -38,7 +38,7 @@ export function Hero() {
   const portraitY = useSpring(pointerY, drift);
 
   function onPointerMove(event: PointerEvent<HTMLElement>) {
-    if (reduce || event.pointerType !== "mouse") return;
+    if (reduce || event.pointerType !== 'mouse') return;
     pointerX.set((event.clientX / window.innerWidth - 0.5) * 28);
     pointerY.set((event.clientY / window.innerHeight - 0.5) * 14);
   }
@@ -49,7 +49,7 @@ export function Hero() {
       id="home"
       aria-label="Introduction"
       onPointerMove={onPointerMove}
-      style={{ "--intro-delay": `${INTRO_DELAY}s` } as CSSProperties}
+      style={{ '--intro-delay': `${INTRO_DELAY}s` } as CSSProperties}
       className="relative isolate flex h-svh min-h-[40rem] flex-col justify-end overflow-hidden bg-paper"
     >
       <h1 className="sr-only">
