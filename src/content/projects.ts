@@ -26,6 +26,9 @@ export type Project = {
   tone: string;
   /** Featured projects show first; the rest sit behind "More work". */
   featured: boolean;
+  /** Extra detail shown when the project leads the work section. */
+  tagline?: string;
+  period?: string;
 };
 
 export const projects: Project[] = [
@@ -41,6 +44,8 @@ export const projects: Project[] = [
     image: tallyn,
     tone: '#e8e7e2',
     featured: true,
+    tagline: 'Less admin. More business.',
+    period: '2026 — Now',
   },
   {
     slug: 'bloco',
