@@ -15,11 +15,13 @@ export function Capabilities() {
         />
       </div>
 
+      {/* Each item spans four shared rows (number, title, text, tools) as a
+          subgrid, so the titles, text and pills line up across columns. */}
       <ol className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
         {capabilities.map((item, i) => (
           <li
             key={item.title}
-            className="group relative flex flex-col border-b border-line py-10 lg:border-b-0 lg:pb-0"
+            className="group relative row-span-4 grid grid-rows-subgrid border-b border-line py-10 lg:border-b-0 lg:pb-0"
           >
             <span
               aria-hidden
@@ -32,7 +34,8 @@ export function Capabilities() {
               {item.title}
             </h3>
             <p className="mt-4 leading-relaxed text-ink-soft">{item.body}</p>
-            <ul className="mt-8 flex flex-wrap gap-2">
+            {/* self-start: don't stretch to the shared row, or the pills grow tall. */}
+            <ul className="mt-8 flex flex-wrap gap-2 self-start">
               {item.tools.map((tool) => (
                 <li
                   key={tool}
