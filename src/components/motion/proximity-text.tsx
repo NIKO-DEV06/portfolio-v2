@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useReducedMotion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useReducedMotion } from 'motion/react';
+import { useEffect, useRef } from 'react';
 
-import { cn } from "@/lib/cn";
+import { cn } from '@/lib/cn';
 
 type ProximityTextProps = {
   lines: string[];
@@ -36,11 +36,14 @@ export function ProximityText({
 
   useEffect(() => {
     const root = ref.current;
-    const area = root?.closest<HTMLElement>("section, footer");
+    const area = root?.closest<HTMLElement>('section, footer');
     if (!root || !area || reduce) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+      return;
 
-    const letters = Array.from(root.querySelectorAll<HTMLElement>("[data-letter]"));
+    const letters = Array.from(
+      root.querySelectorAll<HTMLElement>('[data-letter]'),
+    );
     const weights = letters.map(() => rest);
     let pointer: { x: number; y: number } | null = null;
     let frame = 0;
@@ -82,19 +85,19 @@ export function ProximityText({
       wake();
     };
 
-    area.addEventListener("pointermove", onMove);
-    area.addEventListener("pointerleave", onLeave);
+    area.addEventListener('pointermove', onMove);
+    area.addEventListener('pointerleave', onLeave);
     return () => {
       cancelAnimationFrame(frame);
-      area.removeEventListener("pointermove", onMove);
-      area.removeEventListener("pointerleave", onLeave);
+      area.removeEventListener('pointermove', onMove);
+      area.removeEventListener('pointerleave', onLeave);
     };
   }, [rest, peak, reach, reduce]);
 
-  const offsets = lines.map((_, i) => lines.slice(0, i).join("").length);
+  const offsets = lines.map((_, i) => lines.slice(0, i).join('').length);
 
   return (
-    <span ref={ref} aria-hidden className={cn("block", className)}>
+    <span ref={ref} aria-hidden className={cn('block', className)}>
       {lines.map((line, lineIndex) => (
         <span
           key={lineIndex}
@@ -110,9 +113,12 @@ export function ProximityText({
                   ? `calc(var(--intro-delay, 0s) + ${(offsets[lineIndex] + i) * 35}ms)`
                   : undefined,
               }}
-              className={cn("inline-block", intro && "motion-safe:animate-letter-rise")}
+              className={cn(
+                'inline-block',
+                intro && 'motion-safe:animate-letter-rise',
+              )}
             >
-              {char === " " ? " " : char}
+              {char === ' ' ? ' ' : char}
             </span>
           ))}
         </span>

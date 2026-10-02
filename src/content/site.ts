@@ -9,9 +9,8 @@ export const site = {
   email: "ayenikoemmanuel06@gmail.com",
   location: "United Kingdom",
   timeZone: "Europe/London",
-  // Carried over from v1 — swap in the latest CV link when ready.
-  resumeUrl:
-    "https://drive.google.com/file/d/17Uv_QVmugUmsfoHLnfa6ZAfX_dFZ4JDx/view?usp=sharing",
+  // Served from public/; replace that file to update the CV.
+  resumeUrl: "/Emmanuel_Ayeniko_Full_Stack_Engineer_CV.pdf",
   portrait:
     "https://res.cloudinary.com/djabkdvek/image/upload/v1748168288/photo_yvb19n.jpg",
   // Same photo, face-cropped square by Cloudinary for small avatars.

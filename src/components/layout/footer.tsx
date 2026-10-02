@@ -1,104 +1,110 @@
-import type { ReactNode } from 'react';
-
+import { FooterNav } from '@/components/layout/footer-nav';
 import { FooterReveal } from '@/components/layout/footer-reveal';
-import { ProximityText } from '@/components/motion/proximity-text';
+import { ArcText } from '@/components/motion/arc-text';
+import {
+  ArrowUpRight,
+  CornerDownRight,
+  TallynMark,
+} from '@/components/ui/icons';
+import { LocalTime } from '@/components/ui/local-time';
 import { RollText } from '@/components/ui/roll-text';
 import { site } from '@/content/site';
 
-const pages = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Work', href: '#work' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Experience', href: '#experience' },
-];
+const detailText = 'text-[clamp(1rem,1.1vw,1.1rem)] leading-snug';
 
-const [emailUser, emailDomain] = site.email.split('@');
-
-// Link size tracks the footer's width (cqw) once the three columns appear.
-const linkClass =
-  'group inline-flex text-[1.9rem] font-semibold leading-[1.17] tracking-[-0.03em] xl:text-[2.9cqw]';
-
-function Column({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div>
-      <p className="text-[clamp(0.95rem,1.1cqw,1.2rem)] text-night-muted">
-        ( {label} )
-      </p>
-      <div className="mt-[clamp(1.25rem,3cqw,3rem)]">{children}</div>
-    </div>
-  );
-}
-
+/**
+ * Big page links on rules down the left, contact details and socials on the
+ * right, and the name across the whole screen.
+ */
 export function Footer() {
   return (
-    <footer id="contact" className="relative bg-night text-paper">
+    // The top padding doubles as the reveal's travel, so the parallax only
+    // ever hides empty space above the content.
+    <footer
+      id="contact"
+      className="relative bg-night text-paper [--reveal-travel:clamp(6rem,11vw,10rem)]"
+    >
       <FooterReveal>
-        <div className="gutter @container flex min-h-svh flex-col justify-between gap-[clamp(5rem,12vw,6rem)] pb-[clamp(0.75rem,2vw,1.75rem)] pt-[clamp(2.5rem,4vw,3.75rem)]">
-          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
-            <Column label="Pages">
-              <nav aria-label="Footer">
-                <ul>
-                  {pages.map((page) => (
-                    <li key={page.href}>
-                      <a href={page.href} className={linkClass}>
-                        <RollText text={page.label} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </Column>
+        <div className="flex min-h-svh flex-col justify-between gap-[clamp(2rem,8vw,2rem)] pt-(--reveal-travel)">
+          <div className="gutter grid gap-y-14 md:grid-cols-12 md:gap-x-6">
+            <div className="md:col-span-12 lg:col-span-6">
+              <p className="flex items-center gap-3 text-[clamp(1.05rem,1.3vw,1.25rem)]">
+                <span
+                  aria-hidden
+                  className="size-[0.65em] rounded-full bg-night-muted"
+                />
+                Navigation
+              </p>
+              <FooterNav className="mt-[clamp(2rem,3.8vw,3.5rem)]" />
+            </div>
 
-            <Column label="Socials">
-              <ul>
+            {/* One column wider until xl, so the email clears the socials. */}
+            <div className="md:col-span-7 lg:col-span-4 lg:col-start-7 xl:col-span-3 xl:col-start-8">
+              <p className="eyebrow text-night-muted">(Contact)</p>
+              {/* <a
+                href={site.founderOf.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2.5 rounded-[3px] bg-white/[0.07] px-2.5 py-1.5 text-[0.95rem] transition-colors duration-300 hover:bg-white/[0.13]"
+              >
+                <TallynMark className="h-[0.8em]" />
+                Founder of {site.founderOf.name}
+              </a> */}
+              <p className={`mt-6 ${detailText}`}>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-flex items-center gap-1.5 underline decoration-night-muted underline-offset-[0.25em] transition-colors duration-300 hover:decoration-paper"
+                >
+                  <CornerDownRight className="size-[0.95em] shrink-0" />
+                  {site.email}
+                </a>
+              </p>
+              <p className={`mt-6 text-night-muted ${detailText}`}>
+                Based in the {site.location}.
+                <br />
+                Local time <LocalTime timeZone={site.timeZone} />
+              </p>
+            </div>
+
+            <div className="md:col-span-5 lg:col-span-2 lg:col-start-11">
+              <p className="eyebrow text-night-muted">(Socials)</p>
+              <ul className="mt-6 space-y-1.5">
                 {site.socials.map((social) => (
                   <li key={social.href}>
                     <a
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={linkClass}
+                      className="group inline-flex items-start gap-1 text-[clamp(1.4rem,1.65vw,1.75rem)] font-semibold tracking-[-0.025em]"
                     >
                       <RollText text={social.label} />
+                      <ArrowUpRight
+                        strokeWidth={2.25}
+                        className="mt-[0.15em] size-[0.6em] transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
                     </a>
                   </li>
                 ))}
               </ul>
-            </Column>
-
-            <div className="sm:col-span-2 xl:col-span-1">
-              <Column label="Contact">
-                {/* Breaks at the @ so the long address sits like a two-line block. */}
-                <a
-                  href={`mailto:${site.email}`}
-                  className={`${linkClass} flex-col`}
-                >
-                  <RollText text={emailUser} />
-                  <RollText text={`@${emailDomain}`} />
-                </a>
-              </Column>
             </div>
           </div>
 
-          <div>
-            <p className="mb-[clamp(0.75rem,1.4cqw,1.5rem)] text-[clamp(0.95rem,1.1cqw,1.2rem)] text-night-muted">
-              Full-Stack & AI Product Engineer, based in the UK
-            </p>
-            <p className="sr-only">© 2026 {site.name}</p>
-            <div aria-hidden className="flex select-none items-start uppercase">
-              <ProximityText
-                lines={[site.firstName]}
-                rest={800}
-                peak={520}
-                reach={0.25}
-                // Sized in container units so the name always spans edge to edge.
-                className="text-[19.5cqw] leading-[0.8] tracking-[-0.055em] text-night-muted"
-              />
-              <span className="ml-[0.6cqw] mt-[0.4cqw] text-[5.7cqw] font-bold leading-none transition-transform duration-1000 ease-out-expo hover:rotate-[360deg] text-night-muted">
-                ©
-              </span>
-            </div>
+          {/* The name, its letters spanning the screen edge to edge: the
+              word's ink is 4.292em wide, so 100cqw / 4.292 ≈ 23.3cqw, and
+              the margin cancels the 0.05em space before the "E". */}
+
+          <div
+            aria-hidden
+            className="@container select-none overflow-x-clip translate-y-1/4 scale-[1.025] origin-bottom"
+          >
+            {/* The visible ink starts about halfway down the word's box: the
+                lowercase tops sit a quarter of the way down, and the wrapper
+                drops it another quarter. Start straightening as it peeks in. */}
+            <ArcText
+              text={site.firstName}
+              startAt={0.5}
+              className="-ml-[0.05em] whitespace-nowrap text-[23.3cqw] font-bold leading-[0.8] tracking-[-0.055em] text-night-muted"
+            />
           </div>
         </div>
       </FooterReveal>

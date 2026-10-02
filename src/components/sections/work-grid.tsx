@@ -105,7 +105,7 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
     >
       <Shot
         project={project}
-        aspect="aspect-[4/3]"
+        aspect="aspect-[16/10]"
         sizes="(min-width: 768px) 44vw, 92vw"
       />
       <div className="mt-6 flex items-baseline justify-between gap-6 border-b border-line pb-5">

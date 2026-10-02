@@ -1,8 +1,8 @@
-import { MagneticLink } from "@/components/motion/magnetic-button";
-import { ScrollRevealText } from "@/components/motion/scroll-reveal-text";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { ArrowUpRight } from "@/components/ui/icons";
-import { site } from "@/content/site";
+import { MagneticLink } from '@/components/motion/magnetic-button';
+import { ScrollRevealText } from '@/components/motion/scroll-reveal-text';
+import { Eyebrow } from '@/components/ui/eyebrow';
+import { ArrowUpRight } from '@/components/ui/icons';
+import { site } from '@/content/site';
 
 export function Intro() {
   return (

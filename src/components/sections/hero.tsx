@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { useRef, type CSSProperties, type PointerEvent } from "react";
 
+import { MagneticLink } from "@/components/motion/magnetic-button";
 import { VelocityMarquee } from "@/components/motion/velocity-marquee";
 import { ArrowDownRight, ArrowUpRight, Globe } from "@/components/ui/icons";
 import { LocalTime } from "@/components/ui/local-time";
@@ -75,6 +76,13 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
+      {/* Fades the portrait into the paper so the section edge doesn't cut it.
+          Sits above the portrait but below the name (z-10), which stays crisp. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] bg-linear-to-t from-paper from-15% to-transparent"
+      />
+
       {/* Location pill — hover it for local time. */}
       <div className="absolute left-0 top-[48%] z-10 hidden -translate-y-1/2 [--delay:calc(var(--intro-delay)+0.5s)] motion-safe:animate-slide-in-left md:block">
         {/* Left padding matches the `gutter` utility so text lines up. */}
@@ -108,15 +116,27 @@ export function Hero() {
           <br />
           Product Engineer
         </p>
-        <a
-          href={site.founderOf.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group eyebrow mt-5 inline-flex items-center gap-1.5 text-muted transition-colors hover:text-ink"
-        >
-          Founder of {site.founderOf.name}
-          <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
+        <div className="mt-5 flex items-center gap-5">
+          <a
+            href={site.founderOf.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group eyebrow inline-flex items-center gap-1.5 text-muted transition-colors hover:text-ink"
+          >
+            Founder of {site.founderOf.name}
+            <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+          <MagneticLink
+            href={site.resumeUrl}
+            external
+            strength={0.25}
+            className="h-10 rounded-full bg-ink px-4 text-[0.85rem] text-paper"
+            labelClassName="group-hover:text-ink group-focus-visible:text-ink"
+          >
+            Résumé
+            <ArrowUpRight className="size-3.5" />
+          </MagneticLink>
+        </div>
       </div>
 
       {/* Name — inverted against whatever sits behind it. */}
